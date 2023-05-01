@@ -24,4 +24,5 @@ add_project_arguments(cpp_arguments, language : 'cpp')
 
 # simple-cam executable
 simple_cam = executable('simple-cam', src_files,
-                        dependencies : deps)
+                        dependencies : deps,
+                        install: true)
