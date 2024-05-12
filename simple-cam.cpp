@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <iostream>
 #include <memory>
+#include <thread>
 
 #include <libcamera/libcamera.h>
 
@@ -16,6 +17,7 @@
 #define TIMEOUT_SEC 3
 
 using namespace libcamera;
+using namespace std::chrono_literals;
 static std::shared_ptr<Camera> camera;
 static EventLoop loop;
 
@@ -105,6 +107,9 @@ static void processRequest(Request *request)
 		 * must be mapped by the application
 		 */
 	}
+
+	// simulate processing in the application thread
+	std::this_thread::sleep_for(1s);
 
 	/* Re-queue the Request to the camera. */
 	request->reuse(Request::ReuseBuffers);
