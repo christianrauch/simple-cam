@@ -26,6 +26,7 @@ EventLoop::~EventLoop()
 {
 	instance_ = nullptr;
 
+	evtimer_del(ev);
 	event_base_free(event_);
 	libevent_global_shutdown();
 }
@@ -64,7 +65,6 @@ void EventLoop::timeoutTriggered(int fd, short event, void *arg)
 
 void EventLoop::timeout(unsigned int sec)
 {
-	struct event *ev;
 	struct timeval tv;
 
 	tv.tv_sec = sec;

@@ -29,6 +29,8 @@ public:
 private:
 	static EventLoop *instance_;
 
+	struct event *ev;
+
 	static void timeoutTriggered(int fd, short event, void *arg);
 
 	struct event_base *event_;
