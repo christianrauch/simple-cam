@@ -8,6 +8,24 @@ set (CMAKE_CXX_STANDARD 17)
 
 set (CMAKE_CXX_FLAGS "-Wall -Winvalid-pch -Wnon-virtual-dtor -Wextra -Werror -Wno-unused-parameter")
 
+# run with "ASAN_OPTIONS=fast_unwind_on_malloc=0" to print stack with more details
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    -fsanitize=address \
+    -fsanitize=bool \
+    -fsanitize=bounds \
+    -fsanitize=enum \
+    -fsanitize=float-cast-overflow \
+    -fsanitize=float-divide-by-zero \
+    -fsanitize=nonnull-attribute \
+    -fsanitize=returns-nonnull-attribute \
+    -fsanitize=signed-integer-overflow \
+    -fsanitize=undefined \
+    -fsanitize=vla-bound \
+    -fno-sanitize=alignment \
+    -fsanitize=leak \
+    -fsanitize=object-size \
+")
+
 find_package(PkgConfig)
 
 pkg_check_modules(LIBCAMERA REQUIRED IMPORTED_TARGET libcamera)
@@ -30,3 +48,5 @@ add_executable(simple-cam simple-cam.cpp event_loop.cpp)
 
 target_link_libraries(simple-cam PkgConfig::LIBEVENT)
 target_link_libraries(simple-cam PkgConfig::LIBCAMERA)
+
+install(TARGETS simple-cam)
