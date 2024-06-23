@@ -30,3 +30,5 @@ add_executable(simple-cam simple-cam.cpp event_loop.cpp)
 
 target_link_libraries(simple-cam PkgConfig::LIBEVENT)
 target_link_libraries(simple-cam PkgConfig::LIBCAMERA)
+
+install(TARGETS simple-cam)
